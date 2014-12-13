@@ -1,34 +1,6 @@
 package steamapi.xiaomi.fr.androidapi;
 
-import android.accounts.AccountManager;
-import android.os.AsyncTask;
-import android.util.Log;
-
-import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
-import net.minidev.json.parser.ParseException;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.text.NumberFormat;
-
-import steamapi.xiaomi.fr.androidapi.apiList.ApiList;
-import steamapi.xiaomi.fr.androidapi.apiList.Interfaces;
-import steamapi.xiaomi.fr.androidapi.apiList.Methods;
-import steamapi.xiaomi.fr.androidapi.apiList.Parameters;
-import steamapi.xiaomi.fr.androidapi.models.Achievement;
 import steamapi.xiaomi.fr.androidapi.models.PlayerStats;
-import steamapi.xiaomi.fr.androidapi.modules.SteamAPI;
-import steamapi.xiaomi.fr.androidapi.modules.SteamCallback;
 
 public class MyClass {
 
@@ -37,8 +9,8 @@ public class MyClass {
     private PlayerStats playerStats;
     private OpenID openID;
 
-    public void main() {
-
+    //public static void main(String[] a) {
+    public void main(){
         /*
         Log.d(TAG, "main");
         String url = "http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=250900&key=75AC25959B324D8CD38090997C85C3B2&steamid=76561197964628349";
@@ -128,10 +100,11 @@ public class MyClass {
         for(Achievement achievement : playerStats.getAchievements()){
             System.out.println(achievement.toString());
         }
-        */
 
-        /*
+
+
         ApiList apiList = new ApiList();
+        Response response = new Response();
         JSONParser jsonParser = new JSONParser(JSONParser.MODE_PERMISSIVE);
 
         try{
@@ -139,11 +112,24 @@ public class MyClass {
 
             JSONObject json = (JSONObject) obj;
 
-            apiList.fromJson(json);
+            apiList.fromJsonObject(json);
+
+            Object playerObj = jsonParser.parse(new FileReader("/home/xiaomi/Desktop/players.json"));
+
+            response.fromJsonObject((JSONObject) playerObj);
+
+
         } catch (FileNotFoundException | ParseException e) {
             e.printStackTrace();
         }
 
+        for(Players players : response.getPlayersList()){
+            System.out.println(players.toString());
+        }
+        */
+
+
+        /*
         System.out.println("ApiList:");
         for(Interfaces interfaces : apiList.getInterfacesList()){
             System.out.println("Interfaces:");
@@ -161,9 +147,10 @@ public class MyClass {
                     System.out.println("description:" + parameters.getDescription());
                 }
             }
-        }
-        */
+        }*/
 
+
+        /*
         SteamAPI api = new SteamAPI("76561197964628349");
         api.list.queryListWithoutKey(new SteamCallback<ApiList>() {
             @Override
@@ -190,6 +177,7 @@ public class MyClass {
                 }
             }
         });
+        */
 
 
     }

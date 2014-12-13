@@ -8,6 +8,9 @@ import net.minidev.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import steamapi.xiaomi.fr.androidapi.models.Achievement;
+import steamapi.xiaomi.fr.androidapi.models.JsonBasedObject;
+
 /**
  * Created by xiaomi on 14/12/09.
  */

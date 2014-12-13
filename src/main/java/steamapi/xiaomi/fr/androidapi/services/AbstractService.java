@@ -1,8 +1,6 @@
-package steamapi.xiaomi.fr.androidapi.modules;
+package steamapi.xiaomi.fr.androidapi.services;
 
 import org.apache.http.client.methods.HttpGet;
-
-import steamapi.xiaomi.fr.androidapi.modules.SteamAPI;
 
 /**
  * Created by xiaomi on 14/12/10.

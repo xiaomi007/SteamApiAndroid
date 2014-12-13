@@ -1,4 +1,4 @@
-package steamapi.xiaomi.fr.androidapi.modules;
+package steamapi.xiaomi.fr.androidapi.services;
 
 import android.os.AsyncTask;
 
@@ -33,7 +33,7 @@ public class SteamAPI {
         baseURL = "http://api.steampowered.com/";
     }
 
-    protected void asyncJsonRequest(
+    private void asyncJsonRequest(
             final HttpUriRequest request,
             final SteamCallback<JSONObject> callback) {
 
@@ -114,6 +114,7 @@ public class SteamAPI {
     }
 
 
+    /*
     protected <T extends JsonBasedObject> void asyncAPIRequestWithListOfObjects(
             final Class<T> clazz,
             final HttpUriRequest request,
@@ -133,8 +134,11 @@ public class SteamAPI {
                 });
 
     }
+    */
 
-    public final SteamAPIList list = new SteamAPIList(this);
+    public final SteamAPIList apiList = new SteamAPIList(this);
+
+    public final SteamAPIPlayerSummaries playerSummaries = new SteamAPIPlayerSummaries(this);
 
 
 }

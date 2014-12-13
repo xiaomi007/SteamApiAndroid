@@ -1,4 +1,4 @@
-package steamapi.xiaomi.fr.androidapi.modules;
+package steamapi.xiaomi.fr.androidapi.services;
 
 import steamapi.xiaomi.fr.androidapi.apiList.ApiList;
 

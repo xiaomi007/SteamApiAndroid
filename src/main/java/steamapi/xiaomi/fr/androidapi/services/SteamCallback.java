@@ -1,4 +1,4 @@
-package steamapi.xiaomi.fr.androidapi.modules;
+package steamapi.xiaomi.fr.androidapi.services;
 
 /**
  * Created by xiaomi on 14/12/10.
