@@ -6,10 +6,12 @@ import net.minidev.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import steamapi.xiaomi.fr.androidapi.models.JsonBasedObject;
+
 /**
  * Created by xiaomi on 14/12/13.
  */
-public class ApiList {
+public class ApiList implements JsonBasedObject {
 
     List<Interfaces> interfacesList;
 
@@ -25,11 +27,14 @@ public class ApiList {
         return interfacesList;
     }
 
-    public void setInterfacesList(List<Interfaces> interfacesList) {
-        this.interfacesList = interfacesList;
+
+    @Override
+    public JSONObject toJsonObject() {
+        return null;
     }
 
-    public void fromJson(JSONObject json) {
+    @Override
+    public void fromJsonObject(JSONObject json) {
         JSONObject apiList = (JSONObject) json.get("apilist");
 
         JSONArray interfaces = (JSONArray) apiList.get("interfaces");
@@ -37,16 +42,8 @@ public class ApiList {
         for (int i = 0; i < interfaces.size(); i++) {
             JSONObject interF = (JSONObject) interfaces.get(i);
             Interfaces newInterface = new Interfaces();
-            newInterface.fromJson(interF);
+            newInterface.fromJsonObject(interF);
             this.interfacesList.add(newInterface);
         }
-
-    }
-
-    @Override
-    public String toString() {
-        return "ApiList{\n" +
-                "interfacesList=\n" + interfacesList.toString() +
-                '}';
     }
 }

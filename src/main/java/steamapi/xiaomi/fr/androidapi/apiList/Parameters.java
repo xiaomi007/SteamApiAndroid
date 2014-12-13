@@ -2,10 +2,12 @@ package steamapi.xiaomi.fr.androidapi.apiList;
 
 import net.minidev.json.JSONObject;
 
+import steamapi.xiaomi.fr.androidapi.models.JsonBasedObject;
+
 /**
  * Created by xiaomi on 14/12/13.
  */
-public class Parameters {
+public class Parameters implements JsonBasedObject {
 
     private String name;
     private String type;
@@ -30,48 +32,28 @@ public class Parameters {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getType() {
         return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public boolean isOptional() {
         return optional;
     }
 
-    public void setOptional(boolean optional) {
-        this.optional = optional;
-    }
-
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    @Override
+    public JSONObject toJsonObject() {
+        return null;
     }
 
-    public void fromJson(JSONObject json){
+    @Override
+    public void fromJsonObject(JSONObject json) {
         this.name = json.getAsString("name");
         this.type = json.getAsString("type");
         this.description = json.getAsString("description");
         this.optional = (Boolean) json.get("optional");
-    }
-
-    @Override
-    public String toString() {
-        return "\nParameters{" +
-                "name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", optional=" + optional +
-                ", description='" + description + '\'' +
-                '}';
     }
 }

@@ -22,8 +22,13 @@ import java.io.InputStreamReader;
 import java.text.NumberFormat;
 
 import steamapi.xiaomi.fr.androidapi.apiList.ApiList;
+import steamapi.xiaomi.fr.androidapi.apiList.Interfaces;
+import steamapi.xiaomi.fr.androidapi.apiList.Methods;
+import steamapi.xiaomi.fr.androidapi.apiList.Parameters;
 import steamapi.xiaomi.fr.androidapi.models.Achievement;
 import steamapi.xiaomi.fr.androidapi.models.PlayerStats;
+import steamapi.xiaomi.fr.androidapi.modules.SteamAPI;
+import steamapi.xiaomi.fr.androidapi.modules.SteamCallback;
 
 public class MyClass {
 
@@ -32,9 +37,7 @@ public class MyClass {
     private PlayerStats playerStats;
     private OpenID openID;
 
-    public static void main(String[] args) {
-
-
+    public void main() {
 
         /*
         Log.d(TAG, "main");
@@ -127,6 +130,7 @@ public class MyClass {
         }
         */
 
+        /*
         ApiList apiList = new ApiList();
         JSONParser jsonParser = new JSONParser(JSONParser.MODE_PERMISSIVE);
 
@@ -140,7 +144,52 @@ public class MyClass {
             e.printStackTrace();
         }
 
-        System.out.println("apilist:" + apiList.toString());
+        System.out.println("ApiList:");
+        for(Interfaces interfaces : apiList.getInterfacesList()){
+            System.out.println("Interfaces:");
+            System.out.println(interfaces.getName());
+            for(Methods methods : interfaces.getMethodsList()){
+                System.out.println("Methods:");
+                System.out.println("name:" + methods.getName());
+                System.out.println("version:" + methods.getVersion());
+                System.out.println("httpmethod:" + methods.getHttpMethod());
+                for(Parameters parameters : methods.getParametersList()){
+                    System.out.println("Paramaters:");
+                    System.out.println("name:" + parameters.getName());
+                    System.out.println("type:" + parameters.getType());
+                    System.out.println("optional:" + parameters.isOptional());
+                    System.out.println("description:" + parameters.getDescription());
+                }
+            }
+        }
+        */
+
+        SteamAPI api = new SteamAPI("76561197964628349");
+        api.list.queryListWithoutKey(new SteamCallback<ApiList>() {
+            @Override
+            public void onComplete(ApiList apiList, Exception exception) {
+                if(exception == null && apiList != null){
+                    Log.d(TAG, "ApiList:");
+                    for(Interfaces interfaces : apiList.getInterfacesList()){
+                        Log.d(TAG, "Interfaces:");
+                        Log.d(TAG, interfaces.getName());
+                        for(Methods methods : interfaces.getMethodsList()){
+                            Log.d(TAG, "Methods:");
+                            Log.d(TAG, "name:" + methods.getName());
+                            Log.d(TAG, "version:" + methods.getVersion());
+                            Log.d(TAG, "httpmethod:" + methods.getHttpMethod());
+                            for(Parameters parameters : methods.getParametersList()){
+                                Log.d(TAG, "Paramaters:");
+                                Log.d(TAG, "name:" + parameters.getName());
+                                Log.d(TAG, "type:" + parameters.getType());
+                                Log.d(TAG, "optional:" + parameters.isOptional());
+                                Log.d(TAG, "description:" + parameters.getDescription());
+                            }
+                        }
+                    }
+                }
+            }
+        });
 
 
     }
