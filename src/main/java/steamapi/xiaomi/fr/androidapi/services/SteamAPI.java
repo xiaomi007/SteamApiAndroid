@@ -23,8 +23,8 @@ import java.util.List;
  */
 public class SteamAPI {
 
-    protected String baseURL;
     protected final String key = "75AC25959B324D8CD38090997C85C3B2";
+    protected String baseURL;
     protected String steamId;
 
     public SteamAPI(String steamId) {

@@ -42,5 +42,10 @@ public class SteamAPIPlayerSummaries extends AbstractService {
         this.getPlayersSummaries(ids, callback);
     }
 
+    public void getMyPlayerSummary(SteamCallback<Players> callback){
+        List<String> ids = new ArrayList<>();
+        ids.add(this.steamAPI.steamId);
+        this.getPlayersSummaries(ids, callback);
+    }
 
 }

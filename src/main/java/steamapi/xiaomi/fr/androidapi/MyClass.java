@@ -10,6 +10,7 @@ import java.io.FileReader;
 import steamapi.xiaomi.fr.androidapi.apiList.ApiList;
 import steamapi.xiaomi.fr.androidapi.games.GameLight;
 import steamapi.xiaomi.fr.androidapi.games.Games;
+import steamapi.xiaomi.fr.androidapi.games.GamesRecent;
 import steamapi.xiaomi.fr.androidapi.models.PlayerStats;
 import steamapi.xiaomi.fr.androidapi.playerSummaries.Players;
 
@@ -119,9 +120,11 @@ public class MyClass {
         Players players = new Players();
         Games games = new Games();
         Games extra = new Games();
+        GamesRecent recent = new GamesRecent();
         JSONParser jsonParser = new JSONParser(JSONParser.MODE_PERMISSIVE);
 
         try{
+            /*
             Object obj = jsonParser.parse(new FileReader("/home/xiaomi/Desktop/steamAPI.json"));
 
             JSONObject json = (JSONObject) obj;
@@ -139,16 +142,22 @@ public class MyClass {
             Object extraObj = jsonParser.parse(new FileReader("/home/xiaomi/Desktop/game_extra.json"));
 
             extra.fromJsonObject((JSONObject) extraObj);
+            */
+
+            Object recentObj = jsonParser.parse(new FileReader("/home/xiaomi/Desktop/recent.json"));
+            recent.fromJsonObject((JSONObject) recentObj);
 
         } catch (FileNotFoundException | ParseException e) {
             e.printStackTrace();
         }
 
+        System.out.println("recent game:" + recent.getTotalCount());
 
-        System.out.println("game total:" + extra.getGameCount());
-        for(GameLight gameLight : extra.getGameLights()){
+        for(GameLight gameLight : recent.getGameLights()){
             System.out.println(gameLight.toString());
+
         }
+
 
 
 
@@ -157,6 +166,12 @@ public class MyClass {
         for(Player player : players.getPlayerList()){
             System.out.println(player.toString());
         }
+        System.out.println("game total:" + extra.getGameCount());
+        for(GameLight gameLight : extra.getGameLights()){
+            System.out.println(gameLight.toString());
+        }
+
+
         */
 
 
