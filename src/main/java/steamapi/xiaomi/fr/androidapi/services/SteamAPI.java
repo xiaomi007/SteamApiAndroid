@@ -1,6 +1,7 @@
 package steamapi.xiaomi.fr.androidapi.services;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
@@ -14,9 +15,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
-
-import steamapi.xiaomi.fr.androidapi.models.JsonBasedObject;
 
 /**
  * Created by xiaomi on 14/12/10.
@@ -25,11 +25,10 @@ public class SteamAPI {
 
     protected String baseURL;
     protected final String key = "75AC25959B324D8CD38090997C85C3B2";
+    protected String steamId;
 
-    private String id;
-
-    public SteamAPI(String id) {
-        this.id = id;
+    public SteamAPI(String steamId) {
+        this.steamId = steamId;
         baseURL = "http://api.steampowered.com/";
     }
 
@@ -60,7 +59,7 @@ public class SteamAPI {
                     while ((line = rd.readLine()) != null) {
                         stringBuilder.append(line).append("\n");
                     }
-
+                    Log.d("truc", stringBuilder.toString());
                     this.json = (JSONObject) JSONValue.parse(stringBuilder.toString());
 
 
@@ -102,6 +101,7 @@ public class SteamAPI {
                     callback.onComplete(null, exception);
                 } else {
                     try {
+
                         T t = clazz.newInstance();
                         t.fromJsonObject(data);
                         callback.onComplete(t, null);
@@ -114,31 +114,50 @@ public class SteamAPI {
     }
 
 
-    /*
     protected <T extends JsonBasedObject> void asyncAPIRequestWithListOfObjects(
+            final String root,
             final Class<T> clazz,
             final HttpUriRequest request,
             final SteamCallback<List<T>> callback) {
+
+        final List<T> objects = new ArrayList<>();
+
         this.asyncJsonRequest(request,
                 new SteamCallback<JSONObject>() {
                     @Override
                     public void onComplete(JSONObject data, Exception exception) {
                         if (exception != null) {
                             callback.onComplete(null, exception);
-                            return;
+
                         } else {
-                            JSONArray list = (JSONArray) data.get("");
+                            try {
+                                JSONArray list = (JSONArray) data.get(root);
+                                for (int i = 0; i < list.size(); i++) {
+
+                                    T t = clazz.newInstance();
+                                    t.fromJsonObject((JSONObject) list.get(i));
+                                    objects.add(t);
+
+                                }
+                            } catch (InstantiationException | IllegalAccessException e) {
+                                e.printStackTrace();
+                                callback.onComplete(null, e);
+                            }
+
+                            callback.onComplete(objects, null);
 
                         }
                     }
                 });
 
     }
-    */
+
 
     public final SteamAPIList apiList = new SteamAPIList(this);
 
     public final SteamAPIPlayerSummaries playerSummaries = new SteamAPIPlayerSummaries(this);
+
+    public final SteamApiGames games = new SteamApiGames(this);
 
 
 }

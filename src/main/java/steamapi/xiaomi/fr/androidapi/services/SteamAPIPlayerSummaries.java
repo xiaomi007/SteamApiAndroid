@@ -3,7 +3,7 @@ package steamapi.xiaomi.fr.androidapi.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import steamapi.xiaomi.fr.androidapi.playerSummaries.Response;
+import steamapi.xiaomi.fr.androidapi.playerSummaries.Players;
 
 /**
  * Created by xiaomi on 14/12/13.
@@ -15,7 +15,7 @@ public class SteamAPIPlayerSummaries extends AbstractService {
         super(steamAPI);
     }
 
-    public void getPlayersSummaries(List<String> steamIds, SteamCallback<Response> callback) {
+    public void getPlayersSummaries(List<String> steamIds, SteamCallback<Players> callback) {
         String path = "ISteamUser/GetPlayerSummaries/v0002/?key=" +
                 this.steamAPI.key +
                 "&steamids=";
@@ -30,13 +30,13 @@ public class SteamAPIPlayerSummaries extends AbstractService {
         }
 
         this.steamAPI.asyncAPIRequestWithObject(
-                Response.class,
+                Players.class,
                 httpGet(path),
                 callback
         );
     }
 
-    public void getPlayerSummary(String steamId, SteamCallback<Response> callback){
+    public void getPlayerSummary(String steamId, SteamCallback<Players> callback){
         List<String> ids = new ArrayList<>();
         ids.add(steamId);
         this.getPlayersSummaries(ids, callback);

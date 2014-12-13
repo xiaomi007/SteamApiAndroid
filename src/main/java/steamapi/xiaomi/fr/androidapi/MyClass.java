@@ -1,6 +1,17 @@
 package steamapi.xiaomi.fr.androidapi;
 
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
+import net.minidev.json.parser.ParseException;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
+import steamapi.xiaomi.fr.androidapi.apiList.ApiList;
+import steamapi.xiaomi.fr.androidapi.games.GameLight;
+import steamapi.xiaomi.fr.androidapi.games.Games;
 import steamapi.xiaomi.fr.androidapi.models.PlayerStats;
+import steamapi.xiaomi.fr.androidapi.playerSummaries.Players;
 
 public class MyClass {
 
@@ -10,7 +21,8 @@ public class MyClass {
     private OpenID openID;
 
     //public static void main(String[] a) {
-    public void main(){
+
+        public void main(){
         /*
         Log.d(TAG, "main");
         String url = "http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=250900&key=75AC25959B324D8CD38090997C85C3B2&steamid=76561197964628349";
@@ -101,10 +113,12 @@ public class MyClass {
             System.out.println(achievement.toString());
         }
 
-
+        */
 
         ApiList apiList = new ApiList();
-        Response response = new Response();
+        Players players = new Players();
+        Games games = new Games();
+        Games extra = new Games();
         JSONParser jsonParser = new JSONParser(JSONParser.MODE_PERMISSIVE);
 
         try{
@@ -116,15 +130,32 @@ public class MyClass {
 
             Object playerObj = jsonParser.parse(new FileReader("/home/xiaomi/Desktop/players.json"));
 
-            response.fromJsonObject((JSONObject) playerObj);
+            players.fromJsonObject((JSONObject) playerObj);
 
+            Object gameObj = jsonParser.parse(new FileReader("/home/xiaomi/Desktop/game.json"));
+
+            games.fromJsonObject((JSONObject) gameObj);
+
+            Object extraObj = jsonParser.parse(new FileReader("/home/xiaomi/Desktop/game_extra.json"));
+
+            extra.fromJsonObject((JSONObject) extraObj);
 
         } catch (FileNotFoundException | ParseException e) {
             e.printStackTrace();
         }
 
-        for(Players players : response.getPlayersList()){
-            System.out.println(players.toString());
+
+        System.out.println("game total:" + extra.getGameCount());
+        for(GameLight gameLight : extra.getGameLights()){
+            System.out.println(gameLight.toString());
+        }
+
+
+
+
+        /*
+        for(Player player : players.getPlayerList()){
+            System.out.println(player.toString());
         }
         */
 

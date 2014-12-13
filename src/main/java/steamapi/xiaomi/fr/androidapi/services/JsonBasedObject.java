@@ -1,4 +1,4 @@
-package steamapi.xiaomi.fr.androidapi.models;
+package steamapi.xiaomi.fr.androidapi.services;
 
 
 import net.minidev.json.JSONObject;

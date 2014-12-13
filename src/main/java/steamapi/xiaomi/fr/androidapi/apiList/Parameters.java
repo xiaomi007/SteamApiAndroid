@@ -2,7 +2,7 @@ package steamapi.xiaomi.fr.androidapi.apiList;
 
 import net.minidev.json.JSONObject;
 
-import steamapi.xiaomi.fr.androidapi.models.JsonBasedObject;
+import steamapi.xiaomi.fr.androidapi.services.JsonBasedObject;
 
 /**
  * Created by xiaomi on 14/12/13.
