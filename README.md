@@ -3,6 +3,8 @@ Steam Api Android
 
 Simple android API to access steam's functionnalities.
 
+How to use it:
+--------------
 
 ```java
     String steamId = "xxxxxxxxxxxxxxx"
@@ -33,3 +35,11 @@ Simple android API to access steam's functionnalities.
     
 ```
 
+Dependencies
+------------
+```gradle
+    compile 'com.android.support:support-v4:21.0.3'
+    compile ('net.minidev:json-smart:2.1.0'){
+        exclude module : 'asm' //asm is already include in android
+    }
+```
