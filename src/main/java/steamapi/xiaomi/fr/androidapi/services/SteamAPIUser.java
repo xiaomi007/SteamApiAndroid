@@ -3,15 +3,16 @@ package steamapi.xiaomi.fr.androidapi.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import steamapi.xiaomi.fr.androidapi.playerSummaries.Players;
+import steamapi.xiaomi.fr.androidapi.user.FriendList;
+import steamapi.xiaomi.fr.androidapi.user.Players;
 
 /**
  * Created by xiaomi on 14/12/13.
  */
-public class SteamAPIPlayerSummaries extends AbstractService {
+public class SteamAPIUser extends AbstractService {
 
 
-    protected SteamAPIPlayerSummaries(SteamAPI steamAPI) {
+    protected SteamAPIUser(SteamAPI steamAPI) {
         super(steamAPI);
     }
 
@@ -47,5 +48,24 @@ public class SteamAPIPlayerSummaries extends AbstractService {
         ids.add(this.steamAPI.steamId);
         this.getPlayersSummaries(ids, callback);
     }
+
+    public void getFriendList(String steamId, SteamCallback<FriendList> callback){
+        String path = "ISteamUser/GetFriendList/v0001/?key=" +
+                this.steamAPI.key +
+                "&steamid=" +
+                steamId +
+                "&relationship=friend";
+
+        this.steamAPI.asyncAPIRequestWithObject(
+                FriendList.class,
+                httpGet(path),
+                callback
+        );
+    }
+
+    public void getMyFriendList(SteamCallback<FriendList> callback){
+        this.getFriendList(this.steamAPI.steamId, callback);
+    }
+
 
 }

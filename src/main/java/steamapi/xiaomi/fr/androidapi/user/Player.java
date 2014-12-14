@@ -1,4 +1,4 @@
-package steamapi.xiaomi.fr.androidapi.playerSummaries;
+package steamapi.xiaomi.fr.androidapi.user;
 
 import net.minidev.json.JSONObject;
 

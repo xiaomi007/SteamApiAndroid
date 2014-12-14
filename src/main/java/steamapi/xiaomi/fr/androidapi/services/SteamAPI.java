@@ -155,9 +155,10 @@ public class SteamAPI {
 
     public final SteamAPIList apiList = new SteamAPIList(this);
 
-    public final SteamAPIPlayerSummaries playerSummaries = new SteamAPIPlayerSummaries(this);
+    public final SteamAPIUser user = new SteamAPIUser(this);
 
     public final SteamApiGames games = new SteamApiGames(this);
 
+    public final SteamAPIUserStats userStats = new SteamAPIUserStats(this);
 
 }

@@ -1,4 +1,4 @@
-package steamapi.xiaomi.fr.androidapi.games;
+package steamapi.xiaomi.fr.androidapi.game;
 
 /**
  * Created by xiaomi on 14/12/14.

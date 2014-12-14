@@ -3,7 +3,6 @@ package steamapi.xiaomi.fr.androidapi.apiList;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +11,10 @@ import steamapi.xiaomi.fr.androidapi.services.JsonBasedObject;
 /**
  * Created by xiaomi on 14/12/13.
  */
-public class Interfaces implements JsonBasedObject{
+public class Interfaces implements JsonBasedObject {
+
+    private static final String kName = "name";
+    private static final String kMethods = "methods";
 
     private String name;
     private List<Methods> methodsList;
@@ -22,10 +24,6 @@ public class Interfaces implements JsonBasedObject{
         this.methodsList = new ArrayList<>();
     }
 
-    public Interfaces(String name, List<Methods> methodsList) {
-        this.name = name;
-        this.methodsList = methodsList;
-    }
 
     public String getName() {
         return name;
@@ -42,14 +40,17 @@ public class Interfaces implements JsonBasedObject{
 
     @Override
     public void fromJsonObject(JSONObject json) {
-        this.name = json.getAsString("name");
+        if (json.containsKey(kName)) {
+            this.name = json.getAsString(kName);
+        }
+        if (json.containsKey(kMethods)) {
+            JSONArray methods = (JSONArray) json.get(kMethods);
 
-        JSONArray methods = (JSONArray) json.get("methods");
-
-        for(int i = 0; i < methods.size(); i++){
-            Methods method = new Methods();
-            method.fromJsonObject((JSONObject) methods.get(i));
-            this.methodsList.add(method);
+            for (int i = 0; i < methods.size(); i++) {
+                Methods method = new Methods();
+                method.fromJsonObject((JSONObject) methods.get(i));
+                this.methodsList.add(method);
+            }
         }
     }
 }

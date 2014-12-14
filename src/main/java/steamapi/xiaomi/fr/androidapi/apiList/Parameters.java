@@ -9,6 +9,11 @@ import steamapi.xiaomi.fr.androidapi.services.JsonBasedObject;
  */
 public class Parameters implements JsonBasedObject {
 
+    private static final String kName = "name";
+    private static final String kType = "type";
+    private static final String kOptional = "optional";
+    private static final String kDescription = "description";
+
     private String name;
     private String type;
     private boolean optional;
@@ -19,13 +24,6 @@ public class Parameters implements JsonBasedObject {
         this.type = "";
         this.optional = false;
         this.description = "";
-    }
-
-    public Parameters(String name, String type, boolean optional, String description) {
-        this.name = name;
-        this.type = type;
-        this.optional = optional;
-        this.description = description;
     }
 
     public String getName() {
@@ -51,9 +49,22 @@ public class Parameters implements JsonBasedObject {
 
     @Override
     public void fromJsonObject(JSONObject json) {
-        this.name = json.getAsString("name");
-        this.type = json.getAsString("type");
-        this.description = json.getAsString("description");
-        this.optional = (Boolean) json.get("optional");
+        if (json.containsKey(kName)) {
+            this.name = json.getAsString(kName);
+        }
+
+        if (json.containsKey(kType)) {
+            this.type = json.getAsString(kType);
+        }
+
+        if (json.containsKey(kDescription)) {
+            this.description = json.getAsString(kDescription);
+        }
+
+        if (json.containsKey(kOptional)) {
+            this.optional = (Boolean) json.get(kOptional);
+        }
     }
+
+
 }

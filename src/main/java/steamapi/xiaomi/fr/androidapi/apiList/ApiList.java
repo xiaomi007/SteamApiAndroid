@@ -3,7 +3,7 @@ package steamapi.xiaomi.fr.androidapi.apiList;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import steamapi.xiaomi.fr.androidapi.services.JsonBasedObject;
@@ -13,14 +13,13 @@ import steamapi.xiaomi.fr.androidapi.services.JsonBasedObject;
  */
 public class ApiList implements JsonBasedObject {
 
-    List<Interfaces> interfacesList;
+    private static final String kApiList = "apilist";
+    private static final String kInterfacesList = "interfaces";
+
+    private List<Interfaces> interfacesList;
 
     public ApiList() {
-        this.interfacesList = new ArrayList<>();
-    }
-
-    public ApiList(List<Interfaces> interfacesList) {
-        this.interfacesList = interfacesList;
+        this.interfacesList = new LinkedList<>();
     }
 
     public List<Interfaces> getInterfacesList() {
@@ -35,15 +34,19 @@ public class ApiList implements JsonBasedObject {
 
     @Override
     public void fromJsonObject(JSONObject json) {
-        JSONObject apiList = (JSONObject) json.get("apilist");
+        if (json.containsKey(kApiList)) {
+            JSONObject apiList = (JSONObject) json.get(kApiList);
 
-        JSONArray interfaces = (JSONArray) apiList.get("interfaces");
+            if (apiList.containsKey(kInterfacesList)) {
+                JSONArray interfaces = (JSONArray) apiList.get(kInterfacesList);
 
-        for (int i = 0; i < interfaces.size(); i++) {
-            JSONObject interF = (JSONObject) interfaces.get(i);
-            Interfaces newInterface = new Interfaces();
-            newInterface.fromJsonObject(interF);
-            this.interfacesList.add(newInterface);
+                for (int i = 0; i < interfaces.size(); i++) {
+                    JSONObject interF = (JSONObject) interfaces.get(i);
+                    Interfaces newInterface = new Interfaces();
+                    newInterface.fromJsonObject(interF);
+                    this.interfacesList.add(newInterface);
+                }
+            }
         }
     }
 }

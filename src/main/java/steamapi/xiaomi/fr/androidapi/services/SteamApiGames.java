@@ -1,7 +1,7 @@
 package steamapi.xiaomi.fr.androidapi.services;
 
-import steamapi.xiaomi.fr.androidapi.games.Games;
-import steamapi.xiaomi.fr.androidapi.games.GamesRecent;
+import steamapi.xiaomi.fr.androidapi.game.Games;
+import steamapi.xiaomi.fr.androidapi.game.GamesRecent;
 
 /**
  * Created by xiaomi on 14/12/14.

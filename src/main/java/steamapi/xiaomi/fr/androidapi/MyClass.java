@@ -8,11 +8,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import steamapi.xiaomi.fr.androidapi.apiList.ApiList;
-import steamapi.xiaomi.fr.androidapi.games.GameLight;
-import steamapi.xiaomi.fr.androidapi.games.Games;
-import steamapi.xiaomi.fr.androidapi.games.GamesRecent;
-import steamapi.xiaomi.fr.androidapi.models.PlayerStats;
-import steamapi.xiaomi.fr.androidapi.playerSummaries.Players;
+import steamapi.xiaomi.fr.androidapi.game.Games;
+import steamapi.xiaomi.fr.androidapi.game.GamesRecent;
+import steamapi.xiaomi.fr.androidapi.userStats.Achievement;
+import steamapi.xiaomi.fr.androidapi.userStats.PlayerStats;
+import steamapi.xiaomi.fr.androidapi.user.Friend;
+import steamapi.xiaomi.fr.androidapi.user.FriendList;
+import steamapi.xiaomi.fr.androidapi.user.Players;
+import steamapi.xiaomi.fr.androidapi.userStats.Stats;
 
 public class MyClass {
 
@@ -21,9 +24,9 @@ public class MyClass {
     private PlayerStats playerStats;
     private OpenID openID;
 
-    //public static void main(String[] a) {
+    public static void main(String[] a) {
 
-        public void main(){
+        //    public void main(){
         /*
         Log.d(TAG, "main");
         String url = "http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=250900&key=75AC25959B324D8CD38090997C85C3B2&steamid=76561197964628349";
@@ -121,9 +124,11 @@ public class MyClass {
         Games games = new Games();
         Games extra = new Games();
         GamesRecent recent = new GamesRecent();
+        FriendList friendList = new FriendList();
+        PlayerStats playerStats = new PlayerStats();
         JSONParser jsonParser = new JSONParser(JSONParser.MODE_PERMISSIVE);
 
-        try{
+        try {
             /*
             Object obj = jsonParser.parse(new FileReader("/home/xiaomi/Desktop/steamAPI.json"));
 
@@ -142,22 +147,28 @@ public class MyClass {
             Object extraObj = jsonParser.parse(new FileReader("/home/xiaomi/Desktop/game_extra.json"));
 
             extra.fromJsonObject((JSONObject) extraObj);
-            */
 
             Object recentObj = jsonParser.parse(new FileReader("/home/xiaomi/Desktop/recent.json"));
+
             recent.fromJsonObject((JSONObject) recentObj);
+
+
+            Object friendListObj = jsonParser.parse(new FileReader("/home/xiaomi/Desktop/friend.json"));
+            friendList.fromJsonObject((JSONObject) friendListObj);
+            */
+
+            Object achievementObj = jsonParser.parse(new FileReader("/home/xiaomi/Desktop/userstat.json"));
+            playerStats.fromJsonObject((JSONObject) achievementObj);
 
         } catch (FileNotFoundException | ParseException e) {
             e.printStackTrace();
         }
 
-        System.out.println("recent game:" + recent.getTotalCount());
 
-        for(GameLight gameLight : recent.getGameLights()){
-            System.out.println(gameLight.toString());
-
+        System.out.println(playerStats.toString());
+        for(Stats stats : playerStats.getStatsList()){
+            System.out.println(stats.toString());
         }
-
 
 
 
@@ -171,7 +182,17 @@ public class MyClass {
             System.out.println(gameLight.toString());
         }
 
+        System.out.println("recent game:" + recent.getTotalCount());
 
+        for(GameLight gameLight : recent.getGameLights()){
+            System.out.println(gameLight.toString());
+
+        }
+
+        System.out.println("number of friends:" + friendList.getFriends().size());
+        for(Friend friend : friendList.getFriends()){
+            System.out.println(friend.toString());
+        }
         */
 
 

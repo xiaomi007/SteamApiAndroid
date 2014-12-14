@@ -1,4 +1,4 @@
-package steamapi.xiaomi.fr.androidapi.games;
+package steamapi.xiaomi.fr.androidapi.game;
 
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
