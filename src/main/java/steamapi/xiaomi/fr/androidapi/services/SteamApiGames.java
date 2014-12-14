@@ -1,5 +1,7 @@
 package steamapi.xiaomi.fr.androidapi.services;
 
+import steamapi.xiaomi.fr.androidapi.game.gameTest.Game;
+import steamapi.xiaomi.fr.androidapi.game.gameTest.GameTestExtra;
 import steamapi.xiaomi.fr.androidapi.game.Games;
 import steamapi.xiaomi.fr.androidapi.game.GamesRecent;
 
@@ -7,7 +9,6 @@ import steamapi.xiaomi.fr.androidapi.game.GamesRecent;
  * Created by xiaomi on 14/12/14.
  */
 public class SteamApiGames extends AbstractService {
-
 
 
     protected SteamApiGames(SteamAPI steamAPI) {
@@ -27,6 +28,7 @@ public class SteamApiGames extends AbstractService {
         );
     }
 
+
     public void getMyGameExtra(SteamCallback<Games> callback) {
         String path = "IPlayerService/GetOwnedGames/v0001/?key=" +
                 this.steamAPI.key +
@@ -41,7 +43,8 @@ public class SteamApiGames extends AbstractService {
         );
     }
 
-    public void getRecentGame(String steamId, int limit, SteamCallback<GamesRecent> callback){
+
+    public void getRecentGame(String steamId, int limit, SteamCallback<GamesRecent> callback) {
         String path = "IPlayerService/GetRecentlyPlayedGames/v0001/?key=" +
                 this.steamAPI.key +
                 "&steamid=" +
@@ -56,7 +59,7 @@ public class SteamApiGames extends AbstractService {
         );
     }
 
-    public void getRecentGame(String steamId, SteamCallback<GamesRecent> callback){
+    public void getRecentGame(String steamId, SteamCallback<GamesRecent> callback) {
         String path = "IPlayerService/GetRecentlyPlayedGames/v0001/?key=" +
                 this.steamAPI.key +
                 "&steamid=" +
@@ -70,8 +73,37 @@ public class SteamApiGames extends AbstractService {
 
     }
 
-    public void getMyRecentGame(SteamCallback<GamesRecent> callback){
+    public void getMyRecentGame(SteamCallback<GamesRecent> callback) {
         this.getRecentGame(this.steamAPI.steamId, callback);
+    }
+
+
+    public void getMyTestGameLight(SteamCallback<Game> callback) {
+        String path = "IPlayerService/GetOwnedGames/v0001/?key=" +
+                this.steamAPI.key +
+                "&steamid=" +
+                this.steamAPI.steamId;
+
+        this.steamAPI.asyncAPIRequestWithObject(
+                Game.class,
+                httpGet(path),
+                callback
+        );
+    }
+
+
+    public void getMyTestGameExtra(SteamCallback<GameTestExtra> callback) {
+        String path = "IPlayerService/GetOwnedGames/v0001/?key=" +
+                this.steamAPI.key +
+                "&steamid=" +
+                this.steamAPI.steamId +
+                "&include_appinfo=1";
+
+        this.steamAPI.asyncAPIRequestWithObject(
+                GameTestExtra.class,
+                httpGet(path),
+                callback
+        );
     }
 
 }

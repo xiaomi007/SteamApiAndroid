@@ -8,14 +8,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import steamapi.xiaomi.fr.androidapi.apiList.ApiList;
+import steamapi.xiaomi.fr.androidapi.game.gameTest.GameTestExtra;
 import steamapi.xiaomi.fr.androidapi.game.Games;
 import steamapi.xiaomi.fr.androidapi.game.GamesRecent;
-import steamapi.xiaomi.fr.androidapi.userStats.Achievement;
 import steamapi.xiaomi.fr.androidapi.userStats.PlayerStats;
-import steamapi.xiaomi.fr.androidapi.user.Friend;
 import steamapi.xiaomi.fr.androidapi.user.FriendList;
 import steamapi.xiaomi.fr.androidapi.user.Players;
-import steamapi.xiaomi.fr.androidapi.userStats.Stats;
 
 public class MyClass {
 
@@ -122,7 +120,7 @@ public class MyClass {
         ApiList apiList = new ApiList();
         Players players = new Players();
         Games games = new Games();
-        Games extra = new Games();
+        GameTestExtra extra = new GameTestExtra();
         GamesRecent recent = new GamesRecent();
         FriendList friendList = new FriendList();
         PlayerStats playerStats = new PlayerStats();
@@ -140,6 +138,7 @@ public class MyClass {
 
             players.fromJsonObject((JSONObject) playerObj);
 
+*/
             Object gameObj = jsonParser.parse(new FileReader("/home/xiaomi/Desktop/game.json"));
 
             games.fromJsonObject((JSONObject) gameObj);
@@ -147,7 +146,7 @@ public class MyClass {
             Object extraObj = jsonParser.parse(new FileReader("/home/xiaomi/Desktop/game_extra.json"));
 
             extra.fromJsonObject((JSONObject) extraObj);
-
+            /*
             Object recentObj = jsonParser.parse(new FileReader("/home/xiaomi/Desktop/recent.json"));
 
             recent.fromJsonObject((JSONObject) recentObj);
@@ -155,16 +154,25 @@ public class MyClass {
 
             Object friendListObj = jsonParser.parse(new FileReader("/home/xiaomi/Desktop/friend.json"));
             friendList.fromJsonObject((JSONObject) friendListObj);
-            */
+
 
             Object achievementObj = jsonParser.parse(new FileReader("/home/xiaomi/Desktop/userstat.json"));
             playerStats.fromJsonObject((JSONObject) achievementObj);
+            */
+
+
+
 
         } catch (FileNotFoundException | ParseException e) {
             e.printStackTrace();
         }
 
+        System.out.println(games.toString());
+        System.out.println(extra.toString());
 
+
+
+/*
         System.out.println(playerStats.toString());
         for(Stats stats : playerStats.getStatsList()){
             System.out.println(stats.toString());
@@ -173,7 +181,7 @@ public class MyClass {
 
 
 
-        /*
+
         for(Player player : players.getPlayerList()){
             System.out.println(player.toString());
         }

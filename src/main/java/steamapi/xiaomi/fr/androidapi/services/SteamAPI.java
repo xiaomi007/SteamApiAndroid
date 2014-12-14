@@ -59,7 +59,7 @@ public class SteamAPI {
                     while ((line = rd.readLine()) != null) {
                         stringBuilder.append(line).append("\n");
                     }
-                    Log.d("truc", stringBuilder.toString());
+
                     this.json = (JSONObject) JSONValue.parse(stringBuilder.toString());
 
 
@@ -101,7 +101,6 @@ public class SteamAPI {
                     callback.onComplete(null, exception);
                 } else {
                     try {
-
                         T t = clazz.newInstance();
                         t.fromJsonObject(data);
                         callback.onComplete(t, null);
