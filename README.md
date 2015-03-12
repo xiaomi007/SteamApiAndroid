@@ -18,7 +18,7 @@ How to use it:
     api.user.getPlayersSummaries(List<String> steamIds, new SteamCallback);
     api.user.getPlayerSummary(String steamId, new SteamCallback);
     api.user.getMyPlayerSummary(new SteamCallback);
-    api.user.getFriendList(String steamId);
+    api.user.getFriendList(String steamId, new SteamCallback);
     api.user.getMyFriendList(new SteamCallback);
     
     //API relatives to games owned and games activities
